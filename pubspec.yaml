@@ -1,6 +1,6 @@
 name: flutter_calendar
 description: A calendar widget that uses Material Design.
-version: 0.0.8
+version: 0.0.8+1
 author: Eric Windmill <ericwindmill.com>
 homepage: https://github.com/apptreesoftware/flutter_calendar
 
@@ -12,7 +12,8 @@ dependencies:
     sdk: flutter
   intl: ^0.16.0
   tuple: ^1.0.2
-  date_utils: ^0.1.0+2
+  date_utils:
+    git: https://github.com/AppleEducate/date_utils
 
 dev_dependencies:
   flutter_test:
