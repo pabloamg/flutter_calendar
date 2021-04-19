@@ -5,12 +5,13 @@ author: Eric Windmill <ericwindmill.com>
 homepage: https://github.com/apptreesoftware/flutter_calendar
 
 environment:
-  sdk: '>=2.0.0 <3.0.0'
+  sdk: '>=2.10.0 <3.0.0'
+
 
 dependencies:
   flutter:
     sdk: flutter
-  intl: 0.17.0-nullsafety.2
+  intl: ^0.17.0
   tuple: ^2.0.0
   date_utils:
     git: https://github.com/pabloamg/date_utils
