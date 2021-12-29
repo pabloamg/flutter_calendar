@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:tuple/tuple.dart';
-import 'package:flutter_calendar/calendar_tile.dart';
 import 'package:date_utils/date_utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_calendar/calendar_tile.dart';
+import 'package:tuple/tuple.dart';
 
 typedef DayBuilder(BuildContext context, DateTime day);
 
@@ -181,21 +181,19 @@ class _CalendarState extends State<Calendar> {
 
   TextStyle configureDateStyle(monthStarted, monthEnded) {
     TextStyle dateStyles;
-    final TextStyle body1Style = Theme.of(context).textTheme.body1;
+    final TextStyle body1Style = Theme.of(context).textTheme.bodyText1;
 
     if (isExpanded) {
       final TextStyle body1StyleDisabled = body1Style.copyWith(
-        color: Color.fromARGB(
-          100, 
-          body1Style.color.red, 
-          body1Style.color.green, 
-          body1Style.color.blue,
-        )
-      );
+          color: Color.fromARGB(
+        100,
+        body1Style.color.red,
+        body1Style.color.green,
+        body1Style.color.blue,
+      ));
 
-      dateStyles = monthStarted && !monthEnded
-          ? body1Style
-          : body1StyleDisabled;
+      dateStyles =
+          monthStarted && !monthEnded ? body1Style : body1StyleDisabled;
     } else {
       dateStyles = body1Style;
     }
