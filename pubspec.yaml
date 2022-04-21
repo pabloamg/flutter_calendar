@@ -14,7 +14,7 @@ dependencies:
   intl: ^0.17.0
   tuple: ^2.0.0
   date_utils:
-    git: git://github.com/pabloamg/date_utils.git
+    git: https://github.com/pabloamg/date_utils.git
 
 dev_dependencies:
   flutter_test:
