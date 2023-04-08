@@ -15,7 +15,7 @@ dependencies:
   date_utils:
     git:
       url: https://github.com/pabloamg/date_utils.git
-      commit: 9231011
+      commit: f68b67e
 
 
 dev_dependencies:
