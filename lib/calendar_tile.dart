@@ -18,8 +18,8 @@ class CalendarTile extends StatelessWidget {
     this.dateStyles,
     this.dayOfWeek,
     this.dayOfWeekStyles,
-    this.isDayOfWeek: false,
-    this.isSelected: false,
+    this.isDayOfWeek = false,
+    this.isSelected = false,
   });
 
   Widget renderDateOrDayOfWeek(BuildContext context) {
@@ -47,7 +47,7 @@ class CalendarTile extends StatelessWidget {
           child: new Text(
             Utils.formatDay(date).toString(),
             style: isSelected
-                ? Theme.of(context).primaryTextTheme.bodyText1
+                ? Theme.of(context).primaryTextTheme.bodyLarge
                 : dateStyles,
             textAlign: TextAlign.center,
           ),

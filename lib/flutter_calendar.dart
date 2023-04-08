@@ -20,11 +20,11 @@ class Calendar extends StatefulWidget {
   Calendar(
       {this.onDateSelected,
       this.onSelectedRangeChange,
-      this.isExpandable: false,
+      this.isExpandable = false,
       this.dayBuilder,
-      this.showTodayAction: true,
-      this.showChevronsToChangeRange: true,
-      this.showCalendarPickerIcon: true,
+      this.showTodayAction = true,
+      this.showChevronsToChangeRange = true,
+      this.showCalendarPickerIcon = true,
       this.initialCalendarDateOverride});
 
   @override
@@ -181,7 +181,7 @@ class _CalendarState extends State<Calendar> {
 
   TextStyle configureDateStyle(monthStarted, monthEnded) {
     TextStyle dateStyles;
-    final TextStyle body1Style = Theme.of(context).textTheme.bodyText1;
+    final TextStyle body1Style = Theme.of(context).textTheme.bodyLarge;
 
     if (isExpanded) {
       final TextStyle body1StyleDisabled = body1Style.copyWith(
