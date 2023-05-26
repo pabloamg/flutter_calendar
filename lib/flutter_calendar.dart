@@ -8,14 +8,14 @@ import 'package:tuple/tuple.dart';
 typedef DayBuilder(BuildContext context, DateTime day);
 
 class Calendar extends StatefulWidget {
-  final ValueChanged<DateTime> onDateSelected;
-  final ValueChanged<Tuple2<DateTime, DateTime>> onSelectedRangeChange;
+  final ValueChanged<DateTime>? onDateSelected;
+  final ValueChanged<Tuple2<DateTime, DateTime>>? onSelectedRangeChange;
   final bool isExpandable;
-  final DayBuilder dayBuilder;
+  final DayBuilder? dayBuilder;
   final bool showChevronsToChangeRange;
   final bool showTodayAction;
   final bool showCalendarPickerIcon;
-  final DateTime initialCalendarDateOverride;
+  final DateTime? initialCalendarDateOverride;
 
   Calendar(
       {this.onDateSelected,
@@ -33,18 +33,19 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   final calendarUtils = new Utils();
-  List<DateTime> selectedMonthsDays;
-  Iterable<DateTime> selectedWeeksDays;
+  late List<DateTime> selectedMonthsDays;
+  late Iterable<DateTime> selectedWeeksDays;
   DateTime _selectedDate = new DateTime.now();
-  String currentMonth;
+  String? currentMonth;
   bool isExpanded = false;
-  String displayMonth;
+  late String displayMonth;
   DateTime get selectedDate => _selectedDate;
 
   void initState() {
     super.initState();
-    if (widget.initialCalendarDateOverride != null)
-      _selectedDate = widget.initialCalendarDateOverride;
+    if (widget.initialCalendarDateOverride != null) {
+      _selectedDate = widget.initialCalendarDateOverride!;
+    }
     selectedMonthsDays = Utils.daysInMonth(_selectedDate);
     var firstDayOfCurrentWeek = Utils.firstDayOfWeek(_selectedDate);
     var lastDayOfCurrentWeek = Utils.lastDayOfWeek(_selectedDate);
@@ -130,7 +131,7 @@ class _CalendarState extends State<Calendar> {
   List<Widget> calendarBuilder() {
     List<Widget> dayWidgets = [];
     List<DateTime> calendarDays =
-        isExpanded ? selectedMonthsDays : selectedWeeksDays;
+        isExpanded ? selectedMonthsDays : selectedWeeksDays.toList();
 
     Utils.weekdays.forEach(
       (day) {
@@ -159,7 +160,7 @@ class _CalendarState extends State<Calendar> {
         if (this.widget.dayBuilder != null) {
           dayWidgets.add(
             new CalendarTile(
-              child: this.widget.dayBuilder(context, day),
+              child: this.widget.dayBuilder!(context, day),
               date: day,
               onDateSelected: () => handleSelectedDateAndUserCallback(day),
             ),
@@ -179,17 +180,17 @@ class _CalendarState extends State<Calendar> {
     return dayWidgets;
   }
 
-  TextStyle configureDateStyle(monthStarted, monthEnded) {
-    TextStyle dateStyles;
-    final TextStyle body1Style = Theme.of(context).textTheme.bodyLarge;
+  TextStyle? configureDateStyle(monthStarted, monthEnded) {
+    TextStyle? dateStyles;
+    final TextStyle? body1Style = Theme.of(context).textTheme.bodyLarge;
 
-    if (isExpanded) {
+    if (isExpanded && body1Style != null) {
       final TextStyle body1StyleDisabled = body1Style.copyWith(
           color: Color.fromARGB(
         100,
-        body1Style.color.red,
-        body1Style.color.green,
-        body1Style.color.blue,
+        body1Style.color!.red,
+        body1Style.color!.green,
+        body1Style.color!.blue,
       ));
 
       dateStyles =
@@ -311,14 +312,14 @@ class _CalendarState extends State<Calendar> {
   void updateSelectedRange(DateTime start, DateTime end) {
     var selectedRange = new Tuple2<DateTime, DateTime>(start, end);
     if (widget.onSelectedRangeChange != null) {
-      widget.onSelectedRangeChange(selectedRange);
+      widget.onSelectedRangeChange!(selectedRange);
     }
   }
 
   Future<Null> selectDateFromPicker() async {
-    DateTime selected = await showDatePicker(
+    DateTime? selected = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? new DateTime.now(),
+      initialDate: _selectedDate,
       firstDate: new DateTime(1960),
       lastDate: new DateTime(2050),
     );
@@ -393,7 +394,7 @@ class _CalendarState extends State<Calendar> {
 
   void _launchDateSelectionCallback(DateTime day) {
     if (widget.onDateSelected != null) {
-      widget.onDateSelected(day);
+      widget.onDateSelected!(day);
     }
   }
 }
@@ -403,7 +404,10 @@ class ExpansionCrossFade extends StatelessWidget {
   final Widget expanded;
   final bool isExpanded;
 
-  ExpansionCrossFade({this.collapsed, this.expanded, this.isExpanded});
+  ExpansionCrossFade(
+      {required this.collapsed,
+      required this.expanded,
+      this.isExpanded = false});
 
   @override
   Widget build(BuildContext context) {
